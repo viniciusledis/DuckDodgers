@@ -9,25 +9,33 @@ import SwiftUI
 
 struct DevInfoView: View {
     var body: some View {
-        ZStack {            
-            VStack(alignment: .leading, spacing: 15) {
-                Text("Informações do Desenvolvedor")
-                    .font(.title)
-                    .fontWeight(.bold)
+        NavigationStack {
+            ZStack {
+                Color(red:242/255, green: 242/255, blue: 247/255)
+                    .ignoresSafeArea()
+                
+                VStack {
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Informações do Desenvolvedor")
+                            .font(.title)
+                            .fontWeight(.bold)
 
-                Text("Nome: Vinicius Peres Ledis")
-                Text("Curso: ADS - 1 Termo")
-                Text("Instituição: FATEC - Garça")
-                Text("E-mail: vinicius.ledis@gmail.com")
-                Text("LinkedIn: vinicius.ledis@gmail.com")
-                Text("GitHub: vinicius.ledis@gmail.com")
-                Text("Documentação do App: [Link para a documentação]")
-
-                Spacer()
+                        Text("Nome: Vinicius Peres Ledis")
+                        Text("Curso: ADS - 1 Termo")
+                        Text("Instituição: FATEC - Garça")
+                        Text("E-mail: vinicius.ledis@gmail.com")
+                        Text("LinkedIn: linkedin.com/in/viniciusledis")
+                        Text("GitHub: github.com/viniciusledis")
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(.white)
+                    .cornerRadius(8)
+                    .padding()
+                    
+                    Spacer()
+                }
             }
-            .padding(.top, 30)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
         }
     }
 }

@@ -14,11 +14,14 @@ struct ListagemNavesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // Lista de naves alienígenas, com informações e links de navegação para a tela de detalhes
                 List {
                     ForEach(Array(viewModel.naves.enumerated()), id: \.element.id) { index, nave in
+                        // Link de navegação para a tela de detalhes da nave selecionada
                         NavigationLink {
                             DetailView(nave: nave, index: index + 1)
                         } label: {
+                            // Exibe as principais informações da nave
                             VStack(alignment: .leading) {
                                 Text("Nave \(index + 1)")
                                     .font(.title2.weight(.bold))
@@ -29,11 +32,13 @@ struct ListagemNavesView: View {
                             }
                         }
                     }
+                    // Permite a remoção de naves da lista
                     .onDelete(perform: viewModel.removerNave)
                 }
                 .navigationTitle("Etiqueta Galáctica")
                 .navigationBarBackButtonHidden()
                 .toolbar {
+                    // Botão no canto superior direito para adicionar uma nova nave
                     ToolbarItem {
                         NavigationLink {
                             InventarioView()
@@ -41,6 +46,7 @@ struct ListagemNavesView: View {
                             Image(systemName: "plus")
                         }
                     }
+                    // Botão no canto superior esquerdo para retornar à tela inicial
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
                             dismiss()

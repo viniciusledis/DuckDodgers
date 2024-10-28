@@ -1,5 +1,5 @@
 //
-//  InventarioViewModel.swift
+//  NaveViewModel.swift
 //  DuckDodgers
 //
 //  Created by Vinicius Ledis on 18/10/2024.
@@ -10,18 +10,20 @@ import SwiftUI
 
 @Observable
 class NaveViewModel {
+    // Armazena uma instância de Nave para uso temporário, além de uma lista para armazenar várias naves
     var nave: Nave
     var naves: [Nave] = []
     
+    // Chave para salvar e carregar os dados de naves da persistência local
+    private let navesKey = "navesKey"
     
-   private let navesKey = "navesKey"
-    
+    // Inicializador que cria uma nova nave padrão e carrega as naves salvas, se houver
     init() {
         self.nave = Nave(tamanho: .media, cor: .azul, localDaQueda: "", armamentos: "", combustivel: "", potencialDeProspeccaoTecnologica: 0, grauDePericulosidade: 0, grauDeAvaria: .semAvarias, quantidadeDeTripulantes: 0, estadoDosTripulantes: .saudavel)
         carregarNaves()
-    }
+    }    
     
-
+    // Classifica a nave com base em suas características e retorna uma String com a categoria
     func classificarNave(nave: Nave) -> String {
         if nave.grauDeAvaria == .perdaTotal || nave.grauDeAvaria == .muitoDestruida {
             return "Sucata Espacial"
@@ -46,39 +48,7 @@ class NaveViewModel {
         }
     }
     
-
-        
-//      Sucata Espacial -
-//        Critérios:
-//        Grau de avaria: "perda total" ou "muito destruída"
-//        Potencial tecnológico: baixo (ex.: < 30)
-//        Explicação: A nave está muito danificada e tem pouco valor tecnológico, mas suas peças podem ser reutilizadas.
-//
-//      Joia Tecnológica:
-//        Critérios:
-//        Potencial tecnológico: alto (ex.: > 70)
-//        Grau de avaria: "parcialmente destruída" ou melhor
-//        Explicação: Contém tecnologias avançadas que podem ser estudadas e adaptadas.
-//
-//      Arsenal Alienígena:
-//        Critérios:
-//        Armamentos: presente (não nulo)
-//        Grau de periculosidade: alto (ex.: > 60)
-//        Explicação: A nave possui armamentos que podem ser estudados e usados para reforçar a segurança.
-//
-//      Ameaça em Potencial:
-//        Critérios:
-//        Grau de periculosidade: muito alto (ex.: > 80)
-//        Armamentos: presente, com sistemas hostis ou perigosos
-//        Explicação: A nave tem um nível de risco elevado, com armadilhas ou sistemas que representam uma ameaça.
-//
-//      Fonte de Energia Alternativa:
-//        Critérios:
-//        Tipo de combustível: exótico ou desconhecido
-//        Potencial tecnológico: moderado a alto (ex.: > 50)
-//        Explicação: A nave contém sistemas de propulsão ou energia únicos que podem ser úteis para futuras explorações.
-
-    
+    // Gera um relatório da nave: classifica, armazena na lista e salva no dispositivo
     func gerarRelatorio(nave: Nave) {
         let classificacao = classificarNave(nave: nave)
         var naveComClassificacao = nave
@@ -90,6 +60,7 @@ class NaveViewModel {
         reset()
     }
     
+    // Salva a lista de naves em persistência local
     func salvarNaves() {
         do {
             let encodedData = try JSONEncoder().encode(naves)
@@ -99,6 +70,7 @@ class NaveViewModel {
         }
     }
     
+    // Carrega a lista de naves da persistência local, se houver dados salvos
     func carregarNaves() {
        if let savedData = UserDefaults.standard.data(forKey: navesKey) {
            do {
@@ -109,11 +81,12 @@ class NaveViewModel {
        }
    }
     
-    
+    // Redefine a nave temporária para seu estado inicial
     func reset() {
         self.nave = Nave(tamanho: .media, cor: .azul, localDaQueda: "", armamentos: "", combustivel: "", potencialDeProspeccaoTecnologica: 0, grauDePericulosidade: 0, grauDeAvaria: .semAvarias, quantidadeDeTripulantes: 0, estadoDosTripulantes: .saudavel)
     }
     
+    // Remove uma nave da lista no índice fornecido e salva a lista atualizada
     func removerNave(at offsets: IndexSet) {
         naves.remove(atOffsets: offsets)
         salvarNaves()

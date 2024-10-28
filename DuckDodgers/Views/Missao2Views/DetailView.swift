@@ -18,13 +18,14 @@ struct DetailView: View {
                     .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .center, spacing: 16) {
                         Text("Nave \(index)")
                             .font(.largeTitle)
                             .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.3))
                             .padding(.bottom, 5)
                             .fontWeight(.bold)
                         
+                        // Exibe a classificação da nave e sua descrição detalhada
                         VStack(alignment: .leading) {
                             Text("Classificação: \(nave.classificacao)")
                                 .font(.title2)
@@ -32,13 +33,13 @@ struct DetailView: View {
                             
                             Text(classificacaoDescricao(classificacao: nave.classificacao))
                                 .font(.body)
-
                         }
                         .padding()
                         .background(.white)
                         .cornerRadius(8)
                         .frame(alignment: .leading)
                         
+                        // Exibe informações adicionais sobre a nave, incluindo localização e características físicas
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Informaçōes:")
                                 .font(.title2)
@@ -65,12 +66,12 @@ struct DetailView: View {
                         .background(.white)
                         .cornerRadius(8)
                         
+                        // Informações sobre a tripulação da nave, incluindo quantidade e estado dos tripulantes
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Tripulação:")
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 
-                            
                             Text("Quantidade de Tripulantes: \(nave.quantidadeDeTripulantes)")
                             
                             Text("Estado dos Tripulantes: \(nave.estadoDosTripulantes.rawValue.capitalized)")
@@ -79,7 +80,6 @@ struct DetailView: View {
                         .padding()
                         .background(.white)
                         .cornerRadius(8)
-                      
                     }
                     .padding(16)
                     .clipShape(.rect(cornerRadius: 10))
@@ -87,9 +87,18 @@ struct DetailView: View {
                 .navigationTitle("Detalhes da Nave")
             .navigationBarTitleDisplayMode(.inline)
             }
+            // Botão de informação que leva à tela CriteriosClassificacaoView para explicar classificações
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: CriteriosClassificacaoView()) {
+                        Image(systemName: "info.circle")
+                    }
+                }
+            }
         }
     }
     
+    // Função que retorna a descrição detalhada de cada classificação da nave
     func classificacaoDescricao(classificacao: String) -> String {
         switch classificacao {
         case "Sucata Espacial":

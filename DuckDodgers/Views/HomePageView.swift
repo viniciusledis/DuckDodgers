@@ -20,25 +20,28 @@ struct HomePageView: View {
                         .fontWeight(.bold)
                         .padding()
                         .foregroundColor(.white)
-
+                    
+                    // Botão de navegação para a primeira missão
                     NavigationLink(destination: InventarioView()) {
                         MissionButton(title: "Missão 1: Operação Inventário Estelar")
                             .padding()
                     }
-
+                    
+                    // Botão de navegação para a segunda missão
                     NavigationLink(destination: ListagemNavesView()) {
                         MissionButton(title: "Missão 2: Missão Etiqueta Galáctica")
                             .padding()
                     }
-
-                    NavigationLink(destination: EmptyView()) {
+                    
+                    // Botão de navegação para a terceira missão
+                    NavigationLink(destination: MonitorarView()) {
                         MissionButton(title: "Missão 3: Operação Visão de Captura")
                             .padding()
                     }
                     
-
                     Spacer()
                 }
+                // Barra de ferramentas no topo, com ícone de informações sobre o desenvolvedor.
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink(destination: DevInfoView()) {
@@ -52,6 +55,7 @@ struct HomePageView: View {
     }
 }
 
+// Componente reutilizável para os botões de missão
 struct MissionButton: View {
     let title: String
 
